@@ -1,0 +1,64 @@
+.loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("../assets/Images/SignUpPagePoster.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.loginFormContainer{
+    background: white;
+    padding: 20px 40px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    border-radius: 7px;
+}
+
+.loginFormWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    h2{
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 5px;
+        color: rgb(21, 21, 21);
+        font-weight: 500;
+    }
+}
+
+.inputElement{
+    padding: 5px;
+    outline: none;
+    margin-bottom: 5px;
+    background: transparent;
+    border: 1px solid rgb(200, 197, 197);
+    color: rgb(33, 33, 33);
+}
+.inputElement::placeholder{
+    color:rgb(182, 170, 170);
+}
+
+label{
+    font-size: 14px;
+    color: rgb(77, 75, 75);
+}
+
+.loginBtn{
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    font-size: 18px;
+    margin-top: 10px;
+    background: #D1E8E2;
+    font-weight:500;
+    color: black;
+}
