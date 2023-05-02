@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Login = () => {
 
   const [loggingIn, setLoggingIn] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
   const navigate = useNavigate();
 
   const handleLogIn = async (e) => {
@@ -20,8 +21,13 @@ const Login = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: 'include',
         body: JSON.stringify(userDetails)
       })
+      if(res.status === 400){
+        setWrongCredentials(true);
+        return;
+      }
       console.log(await res.json());
       navigate("/Blogs-home");
     }
@@ -40,10 +46,13 @@ const Login = () => {
           <form className="loginFormWrapper" onSubmit={handleLogIn}>
             <h2>Log in</h2>
             <label htmlFor="email">Email</label>
-            <input autoComplete='off' className='inputElement' id="email" type="email" placeholder='Enter your email' required />
+            <input autoComplete='off' className='inputElement' id="email" type="email" placeholder='Enter your email' required onChange={()=>setWrongCredentials(false)}/>
             <label htmlFor="password">Password</label>
-            <input autoComplete='off' className='inputElement' id="password" type="password" placeholder='Password' required />
+            <input autoComplete='off' className='inputElement' id="password" type="password" placeholder='Password' required onChange={()=>setWrongCredentials(false)}/>
             <button type="submit" disabled={loggingIn ? true: false} className='registerBtn'>{loggingIn ? <i className='fa-solid fa-spinner fa-spin'></i> :"Log in"}</button>
+            {
+              wrongCredentials && <p style={{color:"red",margin:"0",display:"flex",justifyContent:"center"}}>Wrong Credentials !!!</p>
+            }
             <p style={{marginBottom:"0px",fontSize:"15px"}}>Don't have an account yet? <a style={{textDecoration:"none"}} href="/Signup-blog-app">Register</a></p>
           </form>
         </div>
