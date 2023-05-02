@@ -1,0 +1,128 @@
+.blogsHomeContainer{
+
+}
+
+.blogsHomeWrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.blogsPoster{
+    width: 100%;
+    height: 260px;
+    background-color: black;
+
+    h1{
+        color: white;
+        font-weight: 400;
+        padding: 80px;
+    }
+}
+
+.latestBlogContainer{
+    display: flex;
+    align-self: center;
+    width: 75%;
+    background-color: #1174E6;
+    margin-top: -50px;
+    padding: 30px;
+    color: white;
+    font-weight: 400;
+}
+
+.latestBlogWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    h1{
+        margin:0;
+        font-weight: 400;
+    }
+}
+
+.latestBlogInfo{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    img{
+        width: 300px;
+        height: 200px;
+    }
+}
+
+.latestBlogDetails{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    cursor: pointer;
+    h2{
+        margin: 0;
+        font-weight: 400;
+    }
+    p{
+        margin: 0;
+    }
+}
+
+.allBlogsContainer{
+    display: flex;
+    align-self: center;
+    width: 75%;
+    padding: 30px;
+    color: black;
+    font-weight: 400;
+}
+
+.allBlogsWrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    h1{
+        margin:0;
+        font-weight: 400;
+    }
+}
+
+.blogs{
+    display: flex;
+    flex-wrap: wrap;
+    // gap: 30px;
+    justify-content: space-between;
+}
+
+.blog{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    gap: 10px;
+    cursor: pointer;
+    
+    img{
+        width: 250px;
+        height: 150px;
+        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    }
+}
+
+.pagination{
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-self: center;
+    li{
+        cursor: pointer;
+        padding: 10px;
+        width: 25px;
+        height: 25px;
+        align-self: center;
+    }
+    li.active{
+        background-color: #1174E6;
+        border-radius: 50%;
+        color: white;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+    }
+}
