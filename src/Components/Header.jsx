@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import '../Styles/Header.scss'
+import UserContext from '../Contexts/UserContext';
 
 const Header = () => {
   
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const navigate = useNavigate();
+  const [user, setUser] = useContext(UserContext);
 
   return (
     <div className='headerContainer'>
@@ -23,11 +25,11 @@ const Header = () => {
                     <li className='navItem'><a href="/Blogs-home">HOME</a></li>
                     <li className='navItem'><a href="">ABOUT</a></li>
                     <li className='navItem'><a href="">CONTACT</a></li>
-                    <li className='navItem'><a href="/Write-blog">WRITE</a></li>
+                    <li className='navItem'><a href={isLoggedIn ? "/Write-blog":"/Login-blog-app"}>WRITE</a></li>
                 </ul>
             </div>
             <div className='rightSection'>
-                {!isLoggedIn ? <ul className='navItems'>
+                {!user ? <ul className='navItems'>
                     <li className='navItem'><a href="/Login-Blog-app">LOGIN</a></li>
                     <li className='navItem'><a href="/Signup-blog-app">REGISTER</a></li>
                 </ul>:

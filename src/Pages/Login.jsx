@@ -1,12 +1,14 @@
-import React,{ useState } from 'react'
+import React,{ useContext, useState } from 'react'
 import "../Styles/Login.scss"
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../Contexts/UserContext';
 
 const Login = () => {
 
   const [loggingIn, setLoggingIn] = useState(false);
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const navigate = useNavigate();
+  const [user, setUser] = useContext(UserContext);
 
   const handleLogIn = async (e) => {
     e.preventDefault();
@@ -28,7 +30,8 @@ const Login = () => {
         setWrongCredentials(true);
         return;
       }
-      console.log(await res.json());
+      // console.log(await res.json());
+      setUser(await res.json());
       navigate("/Blogs-home");
     }
     catch(err){
@@ -53,7 +56,7 @@ const Login = () => {
             {
               wrongCredentials && <p style={{color:"red",margin:"0",display:"flex",justifyContent:"center"}}>Wrong Credentials !!!</p>
             }
-            <p style={{marginBottom:"0px",fontSize:"15px"}}>Don't have an account yet? <a style={{textDecoration:"none"}} href="/Signup-blog-app">Register</a></p>
+            <p style={{marginBottom:"0px",fontSize:"15px"}}>Don't have an account yet? <a style={{textDecoration:"none",color:"#1174E6"}} href="/Signup-blog-app">Register</a></p>
           </form>
         </div>
       </div>

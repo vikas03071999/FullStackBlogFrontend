@@ -89,7 +89,7 @@ const Register = () => {
             <label style={{display:"flex",alignItems:"center",gap:"5px",cursor:"pointer",marginTop:"3px"}} htmlFor="displayPicture"><img src={DP} alt="dp" style={{width:"40px",height:"40px"}} />Add a display picture</label>
             <input autoComplete='off' className='inputElement' id="displayPicture" type="file" style={{display:"none"}} />
             <button type="submit" disabled={signingUp ? true: false} className='registerBtn'>{signingUp ? <i className='fa-solid fa-spinner fa-spin'></i> :"Sign up"}</button>
-            <p style={{marginBottom:"0px",fontSize:"15px"}}>Already have an account? <a style={{textDecoration:"none"}} href="/Login-blog-app">Login</a></p>
+            <p style={{marginBottom:"0px",fontSize:"15px"}}>Already have an account? <a style={{textDecoration:"none",color:"#1174E6"}} href="/Login-blog-app">Login</a></p>
           </form>
         </div>
       </div>

@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import '../Styles/Blogs.scss'
 import ReactPaginate from 'react-paginate';
 import SampleImage from '../assets/Images/SampleImage.jpg'
 import SampleImage2 from '../assets/Images/SampleImage2.jpg'
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 const Blogs = () => {
   const blogsArray = [
@@ -69,14 +70,37 @@ const Blogs = () => {
     }
   ]
   // Calculating the number of pages required based on the length of the data
-  const pageCount = Math.ceil(blogsArray.length/9);
+  
+  const [blogs, setBlogs] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    const fetchAllBlogs = async() => {
+      try{
+        const res = await fetch(`http://localhost:8082/blogapi/bloghandler/all-blogs`);
+        const allBlogs = await res.json();
+        setBlogs(allBlogs);
+      } catch(err){
+        console.log(err);
+      }
+    }
+    fetchAllBlogs();
+  },[]);
+
+  const pageCount = Math.ceil(blogs?.length/9);
   const [pageNumber, setPageNumber] = useState(0);
   // Setting page number
   const handlePageChange = (selectedPage) => {
     setPageNumber(selectedPage.selected);
   };
   // Selecting the range of data to display according to the page number
-  const blogsInDisplay = blogsArray.slice(pageNumber * 9, pageNumber * 9 + 9);
+  const blogsInDisplay = blogs?.slice(pageNumber * 9, pageNumber * 9 + 9);
+
+  const generatePrettyDate = (originalDate) => {
+    var dateObj = new Date(originalDate);
+    const options = {month: 'long', day: 'numeric', year: 'numeric'};
+    return dateObj.toLocaleDateString('en-GB',options);
+  }
   return (
     <>
       <Header />
@@ -90,10 +114,10 @@ const Blogs = () => {
               <h1>Latest Blog</h1>
               <div className="latestBlogInfo">
                 <img src={SampleImage2} alt="latest-blog-image" />
-                <div className="latestBlogDetails">
-                  <h2>ReactJS blog</h2>
-                  <p>MAY 01,2023</p>
-                  <span>ReactJS is a frontend library for building user interfaces...</span>
+                <div className="latestBlogDetails" onClick={()=>navigate(`/Blog-detail?blogId=${blogs[0]._id}`)}>
+                  <h2>{blogs.length > 0 && blogs[0].blogTitle}</h2>
+                  <p>{blogs.length > 0 && generatePrettyDate(blogs[0].blogDate)}</p>
+                  <span>{blogs.length > 0 && blogs[0].blogDescription.substr(0,60)}...<span style={{color:"black"}}> more</span></span>
                 </div>
               </div>
             </div>
@@ -103,18 +127,18 @@ const Blogs = () => {
               <h1>All Blogs</h1>
               <div className="blogs">
                 {
-                  blogsInDisplay.map((blog,index) => (
-                    <div className="blog" key={index}>
-                      <img src={blog.img} alt="blog-image" />
-                      <span>{blog.title}</span>
-                      <span>{blog.date}</span>
+                  blogsInDisplay.length > 0 && blogsInDisplay.map((blog,index) => (
+                    <div key={blog._id} className="blog" onClick={()=>navigate(`/Blog-detail?blogId=${blog._id}`)}>
+                      <img src={SampleImage} alt="blog-image" />
+                      <span>{blog.blogTitle}</span>
+                      <span>{generatePrettyDate(blog.blogDate)}</span>
                     </div>
                   ))
                 }
               </div>
             </div>
           </div>
-          <ReactPaginate
+          { blogs.length > 9 && <ReactPaginate
           previousLabel={'<'}
           nextLabel={'>'}
           breakLabel={'...'}
@@ -124,7 +148,7 @@ const Blogs = () => {
           onPageChange={handlePageChange}
           containerClassName={'pagination'}
           activeClassName={'active'}
-          />
+          />}
         </div>
       </div>  
     </>
